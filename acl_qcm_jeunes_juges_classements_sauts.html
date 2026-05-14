@@ -7,24 +7,8 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap');
 
-  /* ===== DARK MODE (défaut) ===== */
-  :root, [data-theme="dark"] {
-    --navy: #0c1a1a;
-    --cyan: #007175;
-    --cyan-light: #00a8ae;
-    --gold: #e8a020;
-    --red: #d63030;
-    --green: #2ecc71;
-    --white: #f0f6f6;
-    --mid: #7aa8aa;
-    --card: #0f2424;
-    --border: rgba(0,113,117,0.25);
-    --logo-filter: brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(150deg) brightness(1.1);
-    --logo-opacity: 0.92;
-    --star-color: #e8a020;
-  }
-  /* ===== BRIGHT MODE ===== */
-  [data-theme="bright"] {
+  /* ===== BRIGHT MODE (défaut) ===== */
+  :root, [data-theme="bright"] {
     --navy: #f4fafa;
     --cyan: #007175;
     --cyan-light: #005a5e;
@@ -38,6 +22,22 @@
     --logo-filter: none;
     --logo-opacity: 1;
     --star-color: #c07a00;
+  }
+  /* ===== DARK MODE ===== */
+  [data-theme="dark"] {
+    --navy: #0c1a1a;
+    --cyan: #007175;
+    --cyan-light: #00a8ae;
+    --gold: #e8a020;
+    --red: #d63030;
+    --green: #2ecc71;
+    --white: #f0f6f6;
+    --mid: #7aa8aa;
+    --card: #0f2424;
+    --border: rgba(0,113,117,0.25);
+    --logo-filter: brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(150deg) brightness(1.1);
+    --logo-opacity: 0.92;
+    --star-color: #e8a020;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

@@ -7,26 +7,8 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap');
 
-  /* ===== DARK MODE (défaut) ===== */
-  :root, [data-theme="dark"] {
-    --navy: #0c1a1a;
-    --blue: #004d50;
-    --cyan: #007175;
-    --cyan-light: #00a8ae;
-    --gold: #e8a020;
-    --red: #d63030;
-    --green: #2ecc71;
-    --white: #f0f6f6;
-    --mid: #7aa8aa;
-    --card: #0f2424;
-    --border: rgba(0,113,117,0.25);
-    --logo-filter: brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(150deg) brightness(1.1);
-    --logo-opacity: 0.92;
-    --theme-icon: "☀️";
-  }
-
-  /* ===== BRIGHT MODE ===== */
-  [data-theme="bright"] {
+  /* ===== BRIGHT MODE (défaut) ===== */
+  :root, [data-theme="bright"] {
     --navy: #f4fafa;
     --blue: #e0f0f0;
     --cyan: #007175;
@@ -41,6 +23,24 @@
     --logo-filter: none;
     --logo-opacity: 1;
     --theme-icon: "🌙";
+  }
+
+  /* ===== DARK MODE (défaut) ===== */
+  [data-theme="dark"] {
+    --navy: #0c1a1a;
+    --blue: #004d50;
+    --cyan: #007175;
+    --cyan-light: #00a8ae;
+    --gold: #e8a020;
+    --red: #d63030;
+    --green: #2ecc71;
+    --white: #f0f6f6;
+    --mid: #7aa8aa;
+    --card: #0f2424;
+    --border: rgba(0,113,117,0.25);
+    --logo-filter: brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(150deg) brightness(1.1);
+    --logo-opacity: 0.92;
+    --theme-icon: "☀️";
   }
 
 
@@ -418,14 +418,14 @@
     <div class="chip">Public : <strong>Jeunes Juges (U14–U16)</strong></div>
     <div class="chip">Pool : <strong>100 questions</strong></div>
     <div class="chip">Tirage : <strong>20 questions aléatoires</strong></div>
-    <div class="chip">Q1 : classement vertical · Q2 : classement horizontal</div>
+    <div class="chip">Q19 : classement vertical · Q20: classement horizontal</div>
   </div>
 
   <!-- START -->
   <div id="start-screen">
     <p>Ce QCM couvre l'ensemble des disciplines <strong>sauts</strong> (Hauteur, Perche, Longueur, Triple Saut). 
     À chaque session, <strong>20 questions</strong> sont tirées aléatoirement depuis une banque de 100, 
-    avec en tête <strong>1 classement de saut vertical</strong> (Q1) et <strong>1 classement de saut horizontal</strong> (Q2), tous deux tirés au hasard dans une banque de 6 scénarios.<br><br>
+    avec en fin <strong>1 classement de saut vertical</strong> (Q19) et <strong>1 classement de saut horizontal</strong> (Q20), tous deux tirés au hasard dans une banque de 6 scénarios.<br><br>
     Sélectionne ta réponse puis clique sur <em>Valider</em> pour voir l'explication et la règle applicable.</p>
     <button class="btn" onclick="startQuiz()">Commencer le QCM</button>
   </div>
@@ -1590,7 +1590,7 @@ function toggleReview() {
 // THEME TOGGLE
 // ─────────────────────────────────────────────
 function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  const current = document.documentElement.getAttribute('data-theme') || 'bright';
   const next = current === 'dark' ? 'bright' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('acl-qcm-theme', next);
