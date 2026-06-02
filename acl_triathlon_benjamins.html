@@ -354,72 +354,42 @@ function formatPerf(disc, saisie) {
 }
 
 function calculer() {
-  let valid = true;
   const results = [];
-
   for (let i = 0; i < 3; i++) {
     const disc = document.getElementById('disc'+i).value;
     const perfStr = document.getElementById('perf'+i).value.trim();
     const err = document.getElementById('err'+i);
-    err.style.display = 'none';
-    err.textContent = '';
-
-    if (!disc) {
-      err.textContent = 'Choisis une épreuve';
-      err.style.display = 'block';
-      valid = false; continue;
-    }
-    if (!perfStr) {
-      err.textContent = 'Saisis une performance';
-      err.style.display = 'block';
-      valid = false; continue;
+    err.style.display = 'none'; err.textContent = '';
+    if (!disc || !perfStr) {
+      results.push({ disc: disc||'—', saisie: null, pts: 0 }); continue;
     }
     let saisie;
     if (TIME_EVENTS.has(disc)) {
       saisie = parseSaisieTemps(perfStr);
     } else {
-      // Format xmy : "5m80" → 580 cm, "12m45" → 1245 cm
       const mMatch = perfStr.trim().replace(/,/g, '.').match(/^(\d+)[mM](\d+)$/);
-      if (mMatch) {
-        saisie = parseInt(mMatch[1], 10) * 100 + parseInt(mMatch[2], 10);
-      } else {
-        saisie = parseFloat(perfStr);
-      }
+      saisie = mMatch ? parseInt(mMatch[1],10)*100 + parseInt(mMatch[2],10) : parseFloat(perfStr);
     }
     if (isNaN(saisie) || saisie <= 0) {
-      err.textContent = 'Format invalide';
-      err.style.display = 'block';
-      valid = false; continue;
+      err.textContent = 'Format invalide — compté 0 pt'; err.style.display = 'block';
+      results.push({ disc, saisie: null, pts: 0 }); continue;
     }
     const pts = getPoints(disc, saisie);
     if (pts === null) {
-      err.textContent = 'Performance hors barème (1–50 pts)';
-      err.style.display = 'block';
-      valid = false; continue;
+      err.textContent = 'Hors barème — compté 0 pt'; err.style.display = 'block';
+      results.push({ disc, saisie, pts: 0 }); continue;
     }
     results.push({ disc, saisie, pts });
   }
-
-  if (!valid || results.length < 3) return;
-
-  const discs = results.map(r => r.disc);
-  if (new Set(discs).size < 3) {
-    alert('Merci de choisir 3 épreuves différentes.');
-    return;
-  }
-
   const nom = document.getElementById('nom').value.trim() || 'Athlète';
   const total = results.reduce((s, r) => s + r.pts, 0);
-
   document.getElementById('result-cards').innerHTML = results.map(r => `
     <div class="result-discipline">
-      <div class="result-disc-name">${r.disc}</div>
-      <div class="result-perf">${formatPerf(r.disc, r.saisie)}</div>
-      <div class="result-pts">${r.pts}</div>
+      <div class="result-disc-name">${r.disc === '—' ? 'Non renseigné' : r.disc}</div>
+      <div class="result-perf">${r.saisie !== null ? formatPerf(r.disc, r.saisie) : '—'}</div>
+      <div class="result-pts" style="${r.pts === 0 ? 'color:#aaa' : ''}">${r.pts}</div>
       <div class="result-pts-label">points</div>
-    </div>
-  `).join('');
-
+    </div>`).join('');
   document.getElementById('total-pts').textContent = total;
   document.getElementById('total-athlete').textContent = `${nom} · BE${gender}`;
   document.getElementById('result-section').style.display = 'block';
